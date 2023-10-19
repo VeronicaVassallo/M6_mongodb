@@ -1,0 +1,144 @@
+GET http://localhost:5050/authors HTTP/1.1
+
+####
+POST  http://localhost:5050/authors/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "nome": "Amelia",
+    "cognome": "Volpe",
+    "email": "Volpe@gmail.com",
+    "password": "ameliavolpe",
+    "dataDiNascita": "12 marzo 1994",
+    "avatar": "https://res.cloudinary.com/db2xyqg13/image/upload/v1697383887/imgData/baihuoyyeztjtvx8pudr.jpg"
+
+}
+
+####
+POST  http://localhost:5050/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "Vanesso@gmail.com",
+    "password": "lamiapasswordVanessa"
+}
+
+####
+GET http://localhost:5050/authors/test5  HTTP/1.1
+
+####
+
+PUT http://localhost:5050/authors/modify/test5 HTTP/1.1
+Content-Type: application/json
+
+{
+    "nome": "GAGiangi",
+    "cognome": "Leone Lupo Mannaro",
+    "email": "Gagiangi@gmail.com",
+    "password": "password2",
+    "dataDiNascita": "10 ottobre 2003",
+    "avatar": "Gigaciao"
+}
+
+####
+
+DELETE http://localhost:5050/authors/delete/testata6 HTTP/1.1
+
+####
+PATCH http://localhost:5050/authors/651f0717e046dfff5bae42ed/avatar HTTP/1.1
+Content-Type: application/json
+
+{
+    "avatar": "https://res.cloudinary.com/db2xyqg13/image/upload/v1697383887/imgData/baihuoyyeztjtvx8pudr.jpg"
+}
+####
+
+POST http://localhost:5050/blogposts/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "category": "Prova 1",
+    "title": "Harry Potter e la lasagna",
+    "cover": "https://www.lafeltrinelli.it/images/9788831003445_0_536_0_75.jpg",
+    "readTime":{"value":2, "unit": "ora"},
+    "authorData":{"name": "J. K. Rowling", "avatar": "https://images-na.ssl-images-amazon.com/images/S/amzn-author-media-prod/8cigckin175jtpsk3gs361r4ss.jpg" },
+    "content": "Contenuto 5",
+    "author": "651f0717e046dfff5bae42ed"
+}
+####
+PATCH http://localhost:5050/blogPost/652c067f6db98b874cb69e22/cover HTTP/1.1
+Content-Type: application/json
+
+{
+    "cover": "https://res.cloudinary.com/db2xyqg13/image/upload/v1697384681/imgData/dvwplraiasvj9n0mbczm.jpg"
+}
+
+####
+
+GET http://localhost:5050/blogposts?page=1&pageSize=3 HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21lIjoiRmlsb21lbm8iLCJjb2dub21lIjoiVmVyZGkiLCJlbWFpbCI6IlZlcmRpQGdtYWlsLmNvbSIsImRhdGFEaU5hc2NpdGEiOiI4IGdhaW8gMTk5OSIsImF2YXRhciI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2RiMnh5cWcxMy9pbWFnZS91cGxvYWQvdjE2OTczODM4ODcvaW1nRGF0YS9iYWlodW95eWV6dGp0dng4cHVkci5qcGciLCJpYXQiOjE2OTc0OTEyMzUsImV4cCI6MTY5NzU3NzYzNX0.iXesbfeyC_ZQdr4QLphRS4Pdxyidg_tC6BwzeJzvQwk
+
+####
+GET http://localhost:5050/blogposts HTTP/1.1
+
+####
+
+DELETE http://localhost:5050/blogposts/651c54ce33e993d5e64cd113 HTTP/1.1
+
+####
+PUT http://localhost:5050/blogposts/modify/65204e56449c2de1d5f3a2a4 HTTP/1.1
+Content-Type: application/json
+
+{
+    "category": "Fantasy",
+    "title": "Harry Potter, il calice di fuoco",
+    "cover": "https://www.starshop.it/media/catalog/product/cache/7529cec0f5c016a97e93cd52e8599a75/import/00776HPOT0004.jpg",
+    "readTime":{"value":1, "unit": "ora"},
+    "authorData":{"name": "J. K. Rowling", "avatar": "https://images-na.ssl-images-amazon.com/images/S/amzn-author-media-prod/8cigckin175jtpsk3gs361r4ss.jpg" },
+    "content": "A common form of Lorem ipsum reads: Lorem",
+    "author": "651f0717e046dfff5bae42ed",
+    "content": "A common form of Lorem ipsum reads: Lorem"
+}
+
+####
+POST http://localhost:5050/comments/create HTTP/1.1
+Content-Type: application/json
+
+{
+    "commentText": "Commento di Daniele",
+    "rate": 5,
+    "idBlogPost": "65204d75449c2de1d5f3a29e",
+    "author": "65219d0c422e6d52e3bd2fd4"
+}
+
+####
+GET http://localhost:5050/blogPost/6528128e29651aa7f67a793a/comments HTTP/1.1
+
+####
+GET http://localhost:5050/blogPost/65204d75449c2de1d5f3a29e/comments/6523ca2253ec8423f5460592 HTTP/1.1 
+
+####
+POST http://localhost:5050/blogPost/65204d75449c2de1d5f3a29e  HTTP/1.1
+Content-Type: application/json
+
+{
+    "commentText": "Ciao",
+    "rate": 2,
+    "author": "65219d0c422e6d52e3bd2fd4"
+}
+
+####
+PUT http://localhost:5050/blogPost/65204d75449c2de1d5f3a29e/comments/652464ec152e3eee88b6056d HTTP/1.1
+Content-Type: application/json
+
+{
+    "commentText": "Non mi ha convinto!",
+    "rate": 2,
+    "author": "65219d0c422e6d52e3bd2fd4"
+}
+
+####
+DELETE  http://localhost:5050/blogPost/65204d75449c2de1d5f3a29e/comment/652464ec152e3eee88b6056d HTTP/1.1
+
+####
+GET http://localhost:5050/me HTTP/1.1
