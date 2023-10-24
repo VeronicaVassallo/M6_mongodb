@@ -2,10 +2,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const postRoute = require("./posts");
-const blogpostRoute = require("../be/routes/blogpostCrud");
+const blogpostRoute = require("./routes/blogpostCRUD");
 const commentRouter = require("../be/routes/commentRouter");
 const loginRouter = require("./routes/loginRouter");
 const githubRoute = require("./routes/githubRoute");
+const emailRoute = require("./routes/sendEmail");
 
 const cors = require("cors"); //A)
 /*la porta puo essere definita come una porta di comunicazione di un applicazione 
@@ -26,6 +27,7 @@ app.use("/", blogpostRoute);
 app.use("/", commentRouter);
 app.use("/", loginRouter);
 app.use("/", githubRoute);
+app.use("/", emailRoute);
 
 /*3)Adesso il nostro database deve connettersi con il nostro cloud, la prima cosa da fare è allaciarsi
 al database, per fare cio usiamo l anostra libreria che si chiama mongoose.

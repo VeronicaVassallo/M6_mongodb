@@ -31,7 +31,9 @@ commentRouter.post("/comments/create", validatorComment, async (req, res) => {
 commentRouter.get("/blogPost/:id/comments/", async (req, res) => {
 	const { id } = req.params;
 	try {
-		const listCommentsSinglePost = await commentModel.find({ idBlogPost: id });
+		const listCommentsSinglePost = await commentModel
+			.find({ idBlogPost: id })
+			.populate("author", "nome avatar");
 		let mes = "";
 		if (listCommentsSinglePost === null) mes = "Comment not found!!!";
 		res.status(200).send({

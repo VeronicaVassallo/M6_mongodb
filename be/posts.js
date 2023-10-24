@@ -8,15 +8,14 @@ gli abbiamo detto di riempire queste proprieta con quello che gli passiamo nel b
 5) IMPORTANTE: ricordati il metodo .save perche sarà quello che te lo andra ascrivere nel database*/
 
 const express = require("express");
+const multer = require("multer");
 const AuthorModel = require("./models/authormodel"); //!)
 const authorRouter = express.Router();
-require("dotenv").config();
-const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -61,7 +60,7 @@ authorRouter.patch(
 
 		try {
 			const authorPatched = await AuthorModel.findByIdAndUpdate(authorId, {
-				avatar: req.body.avatar.urlFile,
+				avatar: req.body.avatar.avatar,
 			});
 
 			res.status(200).send({
@@ -71,7 +70,7 @@ authorRouter.patch(
 		} catch (error) {
 			res.status(500).send({
 				statusCode: 500,
-				message: "Error during update" + error,
+				message: "Error during update" + error.message,
 				error,
 			});
 		}

@@ -1,7 +1,8 @@
 const express = require("express");
 const gh = express.Router();
 const passport = require("passport");
-const GithubStrategy = require("passport-github2").Strategy; //import che viene rihiesto per la strategia di github
+const GithubStrategy = require("passport-github2").Strategy;
+//import che viene rihiesto per la strategia di github
 const jwt = require("jsonwebtoken");
 const session = require("express-session");
 require("dotenv").config;
@@ -57,7 +58,6 @@ gh.get(
 	"/auth/github",
 	passport.authenticate("github", { scope: ["user:email"] }),
 	(req, res) => {
-		debugger;
 		const redirectUrl = `http://localhost:3000/success?user=${encodeURIComponent(
 			JSON.stringify(req.user)
 		)}`; //7
@@ -72,11 +72,10 @@ gh.get(
 	"/auth/github/callback",
 	passport.authenticate("github", { failureRedirect: "/" }),
 	(req, res) => {
-		debugger;
 		const user = req.user;
 		console.log("UTENTE:", user);
 		const token = jwt.sign(user, process.env.JWT_SECRET);
-		const redirectUrl = `http//localhost:3000/success?token=${encodeURIComponent(
+		const redirectUrl = `http://localhost:3000/success/${encodeURIComponent(
 			token
 		)}`;
 		res.redirect(redirectUrl);
@@ -84,7 +83,6 @@ gh.get(
 );
 
 gh.get("/success", (req, res) => {
-	debugger;
 	res.redirect("http://localhost:3000/home");
 });
 module.exports = gh;

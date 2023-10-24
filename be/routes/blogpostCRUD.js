@@ -110,6 +110,7 @@ perche gli altri 3 sono nella pagina successiva
 4) conteggio di quanti post abbiamo nella nostra tabella, .count()---> che è un altro metodo 
 di mongoose che ci permette di mantenere il conto di quanti post abbiamo*/
 
+//Ritorna tutti i post
 blogPostRouter.get(
 	"/blogposts",
 	/* verifyToken, */ async (req, res) => {
@@ -128,6 +129,38 @@ blogPostRouter.get(
 				currebtPage: Number(page), //5)la pagina iniziale
 				totalPages: Math.ceil(totalPosts / pageSize), //6) quante pagine abbiamo in totale
 				totalPosts, //7)
+				message: `Trovati ${blogposts.length} elementi`,
+				blogposts,
+			});
+		} catch (e) {
+			res.status(500).send({
+				statusCode: 500,
+				message: "Errore interno al server",
+			});
+		}
+	}
+);
+
+//Get dei post dell'utente loggato
+blogPostRouter.get(
+	"/blogposts/:idAuthor",
+	/* verifyToken, */ async (req, res) => {
+		const { page = 1, pageSize = 3 } = req.query; //1)
+		const { idAuthor } = req.params;
+		try {
+			const blogposts = await blogPostModel
+				.find({ author: { _id: idAuthor } })
+				.populate("author", "nome avatar") //"nome cognome email" se non voglio importarmi tutte le informazioni dell'author posso specificare solo quelle che mi interessano
+				.limit(pageSize) //2)
+				.skip((page - 1) * pageSize); //3)
+
+			const totalPosts = await blogPostModel.count();
+
+			res.status(200).send({
+				statusCode: 200,
+				currebtPage: Number(page), //5)la pagina iniziale
+				totalPages: Math.ceil(totalPosts / pageSize), //6) quante pagine abbiamo in totale
+				//totalPosts, //7)
 				message: `Trovati ${blogposts.length} elementi`,
 				blogposts,
 			});
